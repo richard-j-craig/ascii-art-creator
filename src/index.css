@@ -13,6 +13,20 @@ ol, ul {
   display: table;
 }
 
+.current-choice {
+  background: rgb(238, 215, 4) !important;
+}
+
+.options {
+  margin-left: 10px;
+  width: 34px;
+}
+
+.inline-div {
+  display: inline-block;
+  vertical-align: top;
+}
+
 .status {
   margin-bottom: 10px;
 }
@@ -42,7 +56,7 @@ ol, ul {
 
 .game {
   margin: auto;
-  width: 250px;
+  width: 150px;
   display: flex;
   flex-direction: row;
 }
