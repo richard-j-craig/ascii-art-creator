@@ -18,27 +18,38 @@ import './index.css';
         this.state = {
             // Initialse array with non-breakable spaces
             squares: Array(9).fill('\xa0'),
-            //xIsNext: true,
-            character: this.props.character,
+            character: '-',
         };
     }
 
-    handlesClick(i) {
+    BoardClick(i) {
         const squares = this.state.squares.slice();
-        //squares[i] = this.state.xIsNext ? 'X' : 'O';
         squares[i] = this.state.character;
         this.setState({
             squares: squares,
-            //xIsNext: !this.state.xIsNext,
-            character: this.state.character,
         });
     }
 
-    renderSquare(i) {
+    renderBoardSquare(i) {
       return (
         <Square 
           value={this.state.squares[i]} 
-          onClick={() => this.handlesClick(i)}
+          onClick={() => this.BoardClick(i)}
+        />
+      )
+    }
+
+    OptionClick(option) {
+      this.setState({
+          character: option,
+      });
+    }
+
+    renderOptionSquare(option) {
+      return (
+        <Square 
+          value={option} 
+          onClick={() => this.OptionClick(option)}
         />
       )
     }
@@ -49,20 +60,33 @@ import './index.css';
       return (
         <div>
           <div className="status">{status}</div>
-          <div className="board-row">
-            {this.renderSquare(0)}
-            {this.renderSquare(1)}
-            {this.renderSquare(2)}
+          <div className="inline-div">
+            <div className="board-row">
+              {this.renderBoardSquare(0)}
+              {this.renderBoardSquare(1)}
+              {this.renderBoardSquare(2)}
+            </div>
+            <div className="board-row">
+              {this.renderBoardSquare(3)}
+              {this.renderBoardSquare(4)}
+              {this.renderBoardSquare(5)}
+            </div>
+            <div className="board-row">
+              {this.renderBoardSquare(6)}
+              {this.renderBoardSquare(7)}
+              {this.renderBoardSquare(8)}
+            </div>
           </div>
-          <div className="board-row">
-            {this.renderSquare(3)}
-            {this.renderSquare(4)}
-            {this.renderSquare(5)}
-          </div>
-          <div className="board-row">
-            {this.renderSquare(6)}
-            {this.renderSquare(7)}
-            {this.renderSquare(8)}
+          <div className="inline-div">
+            <div className="options">
+              <Square 
+                className="current-choice" 
+                value={this.state.character} 
+              />
+              {this.renderOptionSquare('\xa0')}
+              {this.renderOptionSquare('-')}
+              {this.renderOptionSquare('/')}
+            </div>
           </div>
         </div>
       );
@@ -71,39 +95,11 @@ import './index.css';
 
 
   class Game extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-          character: '-',
-      };
-    }
-
-    handleClick(i) {
-      this.setState({
-          character: i,
-      });
-    }
-
-    renderSquare(i) {
-      return (
-        <Square 
-          value={i} 
-          onClick={() => this.handleClick(i)}
-        />
-      )
-    }
-
     render() {
       return (
         <div className="game">
           <div className="game-board">
-            <Board character={this.state.character} />
-          </div>
-          <div className="board-row">
-            {this.renderSquare('/')}
-            {this.renderSquare('-')}
-            {this.renderSquare('\xa0')}
-            <Square value={this.state.character} />
+            <Board />
           </div>
         </div>
       );
