@@ -5,59 +5,44 @@ import './index.css';
 
   function Square(props) {
       return (
-          /* 1.
-          Call onClick event handler when button is clicked */
-          /* 2.
-          The event handler calls props.onClick(). And the 
-          properties are received from HandleClick(i) in Board */
           <button className="square" onClick={props.onClick}>
               {props.value}
           </button>
       );
   }
-  
+
 
   class Board extends React.Component {
     constructor(props) {
-        /* Must always call super when defining a constructor of a subclass */
         super(props);
-        /* Use state to 'remember' the value of Squares.
-        Initialise the value property, and next move boolean */
         this.state = {
-            squares: Array(9).fill(null),
-            xIsNext: true,
+            // Initialse array with non-breakable spaces
+            squares: Array(9).fill('\xa0'),
+            //xIsNext: true,
+            character: this.props.character,
         };
     }
 
-    /* 3.
-    Sets new properties for Square, following a click */
-    handleClick(i) {
-        /* Create a new array squares by copying array made in the 
-        constructor using slice(). This allows for Immutability
-        (a new version of the array is created for each move so we 
-        could later add the capability to record a move histories) */
+    handlesClick(i) {
         const squares = this.state.squares.slice();
-        // If xIsNext true then X else O
-        squares[i] = this.state.xIsNext ? 'X' : 'O';
+        //squares[i] = this.state.xIsNext ? 'X' : 'O';
+        squares[i] = this.state.character;
         this.setState({
             squares: squares,
-            // switch to opposite boolean value
-            xIsNext: !this.state.xIsNext,
+            //xIsNext: !this.state.xIsNext,
+            character: this.state.character,
         });
     }
 
-    /* Render a square using the Square function and set its value
-    according to the latest state of the array */
     renderSquare(i) {
       return (
         <Square 
           value={this.state.squares[i]} 
-          onClick={() => this.handleClick(i)}
+          onClick={() => this.handlesClick(i)}
         />
       )
     }
 
-    /* Use the above to create nine squares. */
     render() {
       const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
 
@@ -83,19 +68,48 @@ import './index.css';
       );
     }
   }
-  
+
+
   class Game extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+          character: '-',
+      };
+    }
+
+    handleClick(i) {
+      this.setState({
+          character: i,
+      });
+    }
+
+    renderSquare(i) {
+      return (
+        <Square 
+          value={i} 
+          onClick={() => this.handleClick(i)}
+        />
+      )
+    }
+
     render() {
       return (
         <div className="game">
           <div className="game-board">
-            <Board />
+            <Board character={this.state.character} />
+          </div>
+          <div className="board-row">
+            {this.renderSquare('/')}
+            {this.renderSquare('-')}
+            {this.renderSquare('\xa0')}
+            <Square value={this.state.character} />
           </div>
         </div>
       );
     }
   }
-  
+ 
   // ========================================
   
   ReactDOM.render(
