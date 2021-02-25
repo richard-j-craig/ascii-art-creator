@@ -18,11 +18,7 @@ import './index.css';
     along side a selection of character options */
 
     constructor(props) {
-        super(props);
-        this.props = {
-          canvas_xlen: 30,
-          canvas_ylen: 15,
-        }
+        super(props)
         this.state = {
           canvas_xlen: this.props.canvas_xlen,
           canvas_ylen: this.props.canvas_ylen,
@@ -115,7 +111,7 @@ import './index.css';
     render() {
       return (
         <div className="canvas">
-          <Canvas />
+          <Canvas canvas_xlen="30" canvas_ylen="15" />
         </div>
       );
     }
