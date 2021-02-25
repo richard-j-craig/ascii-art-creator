@@ -3,23 +3,10 @@ body {
   margin: 20px;
 }
 
-ol, ul {
-  padding-left: 30px;
-}
-
-.board-row:after {
+.canvas-row:after {
   clear: both;
   content: "";
   display: table;
-}
-
-.current-choice {
-  background: rgb(238, 215, 4) !important;
-}
-
-.options {
-  margin-left: 10px;
-  width: 34px;
 }
 
 .inline-div {
@@ -27,31 +14,47 @@ ol, ul {
   vertical-align: top;
 }
 
-.status {
-  margin-bottom: 10px;
-}
-
 .square {
   background: #fff;
   border: 1px solid #999;
   float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  font-family: Consolas, monaco, monospace;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
 }
 
 .square:focus {
   outline: none;
 }
 
-.kbd-navigation .square:focus {
-  background: #ddd;
+.canvas-sq {
+  border: 1px solid #ebebeb !important;
+  font-size: 16px;
+  line-height: 11px;
+  height: 19px;
+  width: 10px;
+}
+
+.choice-sq {
+  background: rgb(158, 238, 162) !important;
+  font-size: 24px;
+  line-height: 24px;
+  height: 28px;
+  width: 28px;
+}
+
+.option-sq {
+  font-size: 24px;
+  line-height: 20px;
+  height: 28px;
+  width: 28px;
+}
+
+.options {
+  margin-left: 10px;
+  width: 34px;
 }
 
 .game {
