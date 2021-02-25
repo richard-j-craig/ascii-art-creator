@@ -37,14 +37,6 @@ body {
   width: 10px;
 }
 
-.choice-sq {
-  background: rgb(158, 238, 162) !important;
-  font-size: 24px;
-  line-height: 24px;
-  height: 28px;
-  width: 28px;
-}
-
 .option-sq {
   font-size: 24px;
   line-height: 20px;
@@ -52,14 +44,18 @@ body {
   width: 28px;
 }
 
-.options {
-  margin-left: 10px;
-  width: 34px;
+.choice-sq {
+  background: rgb(158, 238, 162) !important;
 }
 
-.game {
+.options {
+  margin-left: 25px;
+  width: 28px;
+}
+
+.canvas {
   margin: auto;
-  width: 150px;
+  width: 400px;
   display: flex;
   flex-direction: row;
 }

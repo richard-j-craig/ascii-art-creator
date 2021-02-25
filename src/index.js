@@ -4,6 +4,7 @@ import './index.css';
 
 
   function Square(props) {
+    /* Creates a generic square button with an event listener */
       return (
           <button className={props.square_class} onClick={props.onClick}>
               {props.value}
@@ -12,14 +13,25 @@ import './index.css';
   }
 
 
-  class Board extends React.Component {
+  class Canvas extends React.Component {
+    /* Creates a canvas on which the user can draw ascii art, 
+    along side a selection of character options */
+
     constructor(props) {
         super(props);
+        this.props = {
+          canvas_xlen: 30,
+          canvas_ylen: 15,
+        }
         this.state = {
-            // Initialse array with non-breakable spaces
-            canvas_squares: Array(24).fill('\xa0'),
-            // Set default character
-            character: '-',
+          canvas_xlen: this.props.canvas_xlen,
+          canvas_ylen: this.props.canvas_ylen,
+          // Initialse array with non-breakable spaces
+          canvas_squares: Array(
+            this.props.canvas_xlen * this.props.canvas_ylen
+          ).fill('\xa0'),
+          // Set default character
+          character: '/',
         };
     }
 
@@ -57,54 +69,41 @@ import './index.css';
       )
     }
 
+    renderCanvas = () => {
+      let canvas = []
+      let counter = 0
+      for (let i = 0; i < this.state.canvas_ylen; i++) {
+        let row = []
+        for (let j = 0; j < this.state.canvas_xlen; j++) {
+          counter = counter + 1
+          row.push(this.renderCanvasSquare(counter))
+        }
+        canvas.push(<div className="canvas-row">{row}</div>)
+      }
+      return canvas
+    }
+
+    renderOptions = () => {
+      let option_squares = []
+      let options = ['\xa0', '/', '\\', '|', '+', '-', '_'];
+      for (const option of options){
+          option_squares.push(this.renderOptionSquare(option));
+      }
+      return option_squares
+    }
+
     render() {
       return (
         <div>
           <div className="inline-div">
-            <div className="canvas-row">
-              {this.renderCanvasSquare(0)}
-              {this.renderCanvasSquare(1)}
-              {this.renderCanvasSquare(2)}
-              {this.renderCanvasSquare(3)}
-              {this.renderCanvasSquare(4)}
-              {this.renderCanvasSquare(5)}
-            </div>
-            <div className="canvas-row">
-              {this.renderCanvasSquare(6)}
-              {this.renderCanvasSquare(7)}
-              {this.renderCanvasSquare(8)}
-              {this.renderCanvasSquare(9)}
-              {this.renderCanvasSquare(10)}
-              {this.renderCanvasSquare(11)}
-            </div>
-            <div className="canvas-row">
-              {this.renderCanvasSquare(12)}
-              {this.renderCanvasSquare(13)}
-              {this.renderCanvasSquare(14)}
-              {this.renderCanvasSquare(15)}
-              {this.renderCanvasSquare(16)}
-              {this.renderCanvasSquare(17)}
-            </div>
-            <div className="canvas-row">
-              {this.renderCanvasSquare(18)}
-              {this.renderCanvasSquare(19)}
-              {this.renderCanvasSquare(20)}
-              {this.renderCanvasSquare(21)}
-              {this.renderCanvasSquare(22)}
-              {this.renderCanvasSquare(23)}
-            </div>
+            {this.renderCanvas()}
           </div>
-          <div className="inline-div">
-            <div className="options">
+          <div className="inline-div options">
               <Square 
                 square_class={"square option-sq choice-sq"}
                 value={this.state.character} 
               />
-              {this.renderOptionSquare('\xa0')}
-              {this.renderOptionSquare('-')}
-              {this.renderOptionSquare('/')}
-              {this.renderOptionSquare('\\')}
-            </div>
+              {this.renderOptions()}
           </div>
         </div>
       );
@@ -112,13 +111,11 @@ import './index.css';
   }
 
 
-  class Game extends React.Component {
+  class Wrap extends React.Component {
     render() {
       return (
-        <div className="game">
-          <div className="game-board">
-            <Board />
-          </div>
+        <div className="canvas">
+          <Canvas />
         </div>
       );
     }
@@ -127,7 +124,7 @@ import './index.css';
   // ========================================
   
   ReactDOM.render(
-    <Game />,
+    <Wrap />,
     document.getElementById('root')
   );
 
