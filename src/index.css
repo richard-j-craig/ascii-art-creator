@@ -55,7 +55,8 @@ body {
 
 .canvas {
   margin: auto;
-  width: 400px;
+  width: 510px;
+  padding-left: 57px;
   display: flex;
   flex-direction: row;
 }

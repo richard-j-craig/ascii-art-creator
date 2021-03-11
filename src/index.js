@@ -111,7 +111,7 @@ import './index.css';
     render() {
       return (
         <div className="canvas">
-          <Canvas canvas_xlen="30" canvas_ylen="15" />
+          <Canvas canvas_xlen="50" canvas_ylen="20" />
         </div>
       );
     }
